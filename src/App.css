@@ -1,0 +1,26 @@
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 15px;
+}
+
+.title {
+  justify-content: center;
+  display: flex;
+}
