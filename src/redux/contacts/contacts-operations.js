@@ -4,8 +4,11 @@ import phoneBookActions from "./contacts-actions";
 
 axios.defaults.baseURL = "http://localhost:4040";
 
+// axios.defaults.baseURL = "https://618d5dd2fe09aa00174406f0.mockapi.io /contacts";
+
 const fetchContact = () => async (dispatch) => {
   dispatch(phoneBookActions.fetchContactsRequest());
+
   try {
     const { data } = await axios.get("/contacts");
     dispatch(phoneBookActions.fetchContactsSuccess(data));
@@ -21,6 +24,7 @@ const addContact = (name, number) => async (dispatch) => {
     number,
   };
   dispatch(phoneBookActions.addContactRequest());
+
   try {
     const { data } = await axios.post("/contacts", contact);
     dispatch(phoneBookActions.addContactSuccess(data));
@@ -29,13 +33,14 @@ const addContact = (name, number) => async (dispatch) => {
   }
 };
 
-const deleteContact = (name) => async (dispatch) => {
+const deleteContact = (id) => async (dispatch) => {
   dispatch(phoneBookActions.deleteContactRequest());
+
   try {
-    await axios.delete(`/contacts/${name}`);
-    dispatch(phoneBookActions.deleteContactSuccess(name));
+    await axios.delete(`/contacts/${id}`);
+    dispatch(phoneBookActions.deleteContactSuccess(id));
   } catch (error) {
-    dispatch(phoneBookActions.deleteContactError(name));
+    dispatch(phoneBookActions.deleteContactError(id));
   }
 };
 

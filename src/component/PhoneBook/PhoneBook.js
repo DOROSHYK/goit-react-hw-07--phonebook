@@ -1,23 +1,28 @@
 import React from "react";
-// import { connect } from 'react-redux';
-// import phoneBookActions from '../../redux/contacts/contacts-actions';
+import { getVisibleContacts } from "../../redux/contacts/contacts-selectors";
+import contactOperation from "../../redux/contacts/contacts-operations";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import shortid from "shortid";
 import style from "./PhoneBook.module.css";
 
-const Phonebook = ({ contacts, onDelete }) => {
+const Phonebook = ({ id }) => {
   // const keyId = shortid.generate();
+  const filterContacts = useSelector(getVisibleContacts);
+  const dispatch = useDispatch();
 
+  const onDeleteContact = (id) => dispatch(contactOperation.deleteContact);
   return (
     <div className={style.itemContainer}>
       <ul>
-        {contacts.map(({ name, number }) => (
+        {filterContacts.map(({ name, number }) => (
           <li className={style.item} key={shortid.generate()}>
             <span>{name}: </span>
             <span>{number} </span>
             <button
               className={style.deleteButton}
               type="button"
-              onClick={() => onDelete(name)}
+              onClick={() => onDeleteContact(id)}
             >
               <p className={style.centr}>❌</p>
             </button>
