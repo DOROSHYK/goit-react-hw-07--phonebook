@@ -1,70 +1,122 @@
-import React, { Component } from "react";
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import actions from '../../redux/contacts/contacts-actions'
+import { getContacts } from "../../redux/contacts/contacts-selectors";
+
+// import { getIsAdded } from '../../redux/contacts/contacts-selectors';
+import { toast } from "react-toastify";
+// import shortid from 'shortid';
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import contactOperation from "../../redux/contacts/contacts-operations";
 import style from "./InputForm.module.css";
-class InputForm extends Component {
-  state = {
-    name: "",
-    number: "",
+function InputForm() {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+
+  const reset = () => {
+    setName("");
+    setNumber("");
   };
 
-  handelChange = (event) => {
+  //  const nameInputId = shortid.generate();
+  // const phoneNumberInputId = shortid.generate();
+
+  const handelChange = (event) => {
     const { name, value } = event.currentTarget;
-    this.setState({ [name]: value });
-    // console.log(event.currentTarget);
+
+    switch (name) {
+      case "name":
+        setName(value);
+        break;
+
+      case "number":
+        setNumber(value);
+        break;
+
+      default:
+        return;
+    }
   };
 
-  handleSubmit = (event) => {
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (contacts(name)) {
+  //     return toast.warn(`${name} is already in contacts.`);
+  //   } else {
+  //     dispatch(contactOperation.addContact(name, number));
+  //   }
+  //   reset();
+  // }
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(this.state)
-    this.props.onSubmit(this.state);
-    this.reset();
+
+    if (name === "") {
+      toast.warn("Please enter the contact's name!");
+      return;
+    }
+
+    if (number === "") {
+      toast.warn("Please enter the contact's phone number!");
+      return;
+    }
+
+    if (
+      contacts.find(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      // toast.warn(`${name} is already in contacts.`);
+      alert(`${name} is already in contacts.`);
+      reset();
+      return;
+    }
+    dispatch(contactOperation.addContact(name, number));
+    toast.success("Contact has been added to your phonebook!");
+    reset();
   };
 
-  reset = () => {
-    this.setState({ name: "", number: "" });
-  };
+  return (
+    <form className={style.Form} onSubmit={handleSubmit}>
+      <div className={style.InputForm}>
+        <label>Имя</label>
+        {/* //htmlFor={nameInputId}// */}
+        <input
+          className={style.FormInput}
+          // id={phoneNumberInputId}
+          value={name}
+          onChange={handelChange}
+          // onChange={event => setName(event.target.value)}
 
-  render() {
-    const { name, number } = this.state;
-    return (
-      <form className={style.Form} onSubmit={this.handleSubmit}>
-        <div className={style.InputForm}>
-          <label>Имя</label>
-          <input
-            className={style.FormInput}
-            id="name"
-            value={name}
-            onChange={this.handelChange}
-            type="tex"
-            name="name"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-            // required
-          />
-        </div>
+          type="tex"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+          required
+        />
+      </div>
 
-        <div className={style.InputForm}>
-          <label>Телефон</label>
-          <input
-            className={style.FormInput}
-            id="number"
-            value={number}
-            onChange={this.handelChange}
-            type="tex"
-            name="number"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            // title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-            // required
-          />
-        </div>
-        <button className={style.button} type="submit">
-          Add contact
-        </button>
-      </form>
-    );
-  }
+      <div className={style.InputForm}>
+        <label>Телефон</label>
+        <input
+          className={style.FormInput}
+          // id={phoneNumberInputId}
+          value={number}
+          onChange={handelChange}
+          // onChange={event => setNumber(event.target.value)}
+          type="tex"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+          required
+        />
+      </div>
+      <button className={style.button} type="submit">
+        Add contact
+      </button>
+    </form>
+  );
 }
 
 export default InputForm;

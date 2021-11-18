@@ -40,7 +40,7 @@ const deleteContact = (id) => async (dispatch) => {
     await axios.delete(`/contacts/${id}`);
     dispatch(phoneBookActions.deleteContactSuccess(id));
   } catch (error) {
-    dispatch(phoneBookActions.deleteContactError(id));
+    dispatch(phoneBookActions.deleteContactError(error));
   }
 };
 

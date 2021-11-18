@@ -1,12 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import shortid from 'shortid';
 import InputForm from "./component/InputForm/InputForm";
 import Phonebook from "./component/PhoneBook/PhoneBook";
 import Filter from "./component/Filter/Filter";
 import contactOperation from "./redux/contacts/contacts-operations";
 import "./App.css";
+import { getContacts } from "redux/contacts/contacts-selectors";
 // import store from './redux/store';
 // import { myAction } from './redux/contacts/contacts-actions';
 // console.log(store);
@@ -14,9 +15,10 @@ import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   useEffect(() => {
-    dispatch(contactOperation.fetchContacts());
+    dispatch(contactOperation.fetchContact());
   }, [dispatch]);
 
   return (
@@ -27,7 +29,7 @@ function App() {
 
         <Filter />
 
-        <Phonebook />
+        {contacts && <Phonebook />}
       </div>
     </>
   );
