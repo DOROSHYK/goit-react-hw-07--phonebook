@@ -19,9 +19,6 @@ function InputForm() {
     setNumber("");
   };
 
-  //  const nameInputId = shortid.generate();
-  // const phoneNumberInputId = shortid.generate();
-
   const handelChange = (event) => {
     const { name, value } = event.currentTarget;
 
@@ -39,18 +36,8 @@ function InputForm() {
     }
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (contacts(name)) {
-  //     return toast.warn(`${name} is already in contacts.`);
-  //   } else {
-  //     dispatch(contactOperation.addContact(name, number));
-  //   }
-  //   reset();
-  // }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (name, number) => {
+    // event.preventDefault();
 
     if (name === "") {
       toast.warn("Please enter the contact's name!");
@@ -77,18 +64,22 @@ function InputForm() {
     reset();
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleSubmit(name, number);
+    reset();
+  };
+
   return (
-    <form className={style.Form} onSubmit={handleSubmit}>
+    <form className={style.Form} onSubmit={onSubmit}>
       <div className={style.InputForm}>
         <label>Имя</label>
-        {/* //htmlFor={nameInputId}// */}
+
         <input
           className={style.FormInput}
-          // id={phoneNumberInputId}
           value={name}
-          onChange={handelChange}
-          // onChange={event => setName(event.target.value)}
-
+          // onChange={handelChange}
+          onChange={(event) => setName(event.target.value)}
           type="tex"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -105,7 +96,7 @@ function InputForm() {
           value={number}
           onChange={handelChange}
           // onChange={event => setNumber(event.target.value)}
-          type="tex"
+          type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"

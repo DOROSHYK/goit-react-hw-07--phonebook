@@ -16,8 +16,8 @@ export const getVisibleContacts = createSelector(
   }
 );
 
-export const getIsAdded = createSelector([getContacts], (contacts) => {
-  const isAdded = (name) =>
-    contacts.map((contact) => contact.name).includes(name);
-  return isAdded;
-});
+// export const getIsAdded = createSelector([getContacts], (contacts) => {
+//   const isAdded = (name) =>
+//     contacts.map((contact) => contact.name).includes(name);
+//   return isAdded;
+// });
