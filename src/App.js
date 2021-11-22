@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import shortid from 'shortid';
 // import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import InputForm from "./component/InputForm/InputForm";
 import Phonebook from "./component/PhoneBook/PhoneBook";
 import Filter from "./component/Filter/Filter";
@@ -23,11 +25,11 @@ function App() {
       <div className="container">
         <h1 className="title"> PhoneBook </h1>
         <InputForm />
-        {/* <ToastContainer
+        <ToastContainer
           autoClose={3000}
-        position="top-center"
-        theme="colored"
-        /> */}
+          position="top-center"
+          theme="colored"
+        />
         <Filter />
 
         {contacts && <Phonebook />}

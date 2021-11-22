@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
-import { createReducer } from "@reduxjs/toolkit";
+// import { combineReducers } from "redux";
+import { createReducer, combineReducers } from "@reduxjs/toolkit";
 import phoneBookActions from "./contacts-actions";
 
-const contacts = createReducer([], {
+const items = createReducer([], {
   [phoneBookActions.fetchContactsSuccess]: (_, { payload }) => payload,
   [phoneBookActions.addContactSuccess]: (state, { payload }) => [
     ...state,
@@ -20,7 +20,7 @@ const filter = createReducer("", {
 const error = createReducer(null, {});
 
 export default combineReducers({
-  contacts,
+  items,
   filter,
   error,
 });

@@ -78,8 +78,8 @@ function InputForm() {
         <input
           className={style.FormInput}
           value={name}
-          // onChange={handelChange}
-          onChange={(event) => setName(event.target.value)}
+          onChange={handelChange}
+          // onChange={(event) => setName(event.target.value)}
           type="tex"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
