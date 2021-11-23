@@ -1,8 +1,5 @@
 import { getContacts } from "../../redux/contacts/contacts-selectors";
-
-// import { getIsAdded } from '../../redux/contacts/contacts-selectors';
 import { toast } from "react-toastify";
-// import shortid from 'shortid';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import contactOperation from "../../redux/contacts/contacts-operations";
@@ -54,8 +51,8 @@ function InputForm() {
         (contact) => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      // toast.warn(`${name} is already in contacts.`);
-      alert(`${name} is already in contacts.`);
+      toast.warn(`${name} is already in contacts.`);
+
       reset();
       return;
     }
@@ -92,7 +89,6 @@ function InputForm() {
         <label>Телефон</label>
         <input
           className={style.FormInput}
-          // id={phoneNumberInputId}
           value={number}
           onChange={handelChange}
           // onChange={event => setNumber(event.target.value)}
@@ -111,13 +107,3 @@ function InputForm() {
 }
 
 export default InputForm;
-// const mapStateToProps = ({ contacts: { contacts } }) => ({
-//   contacts,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onSubmit: ({ name, number }) =>
-//     dispatch(actions.addContact({ name, number })),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(InputForm);

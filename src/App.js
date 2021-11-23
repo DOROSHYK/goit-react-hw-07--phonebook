@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import shortid from 'shortid';
-// import { ToastContainer } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputForm from "./component/InputForm/InputForm";

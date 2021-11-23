@@ -15,9 +15,3 @@ export const getVisibleContacts = createSelector(
     return filteredContacts(items);
   }
 );
-
-// export const getIsAdded = createSelector([getContacts], (contacts) => {
-//   const isAdded = (name) =>
-//     contacts.map((contact) => contact.name).includes(name);
-//   return isAdded;
-// });

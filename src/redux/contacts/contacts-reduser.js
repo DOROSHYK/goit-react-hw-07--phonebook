@@ -1,4 +1,3 @@
-// import { combineReducers } from "redux";
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
 import phoneBookActions from "./contacts-actions";
 
